@@ -181,13 +181,15 @@ const Chat = (props) => {
 
   const getMessageSpans = (message) => {
     let isNonRp = message.category === 'plain';
+    let isRoll = message.category === 'roll';
     const result = message.text.map(({ text, color, opacity, type }, i) => {
+      isRoll = isRoll || type.includes('roll');
       if (i >= 1) {
         isNonRp = (type.includes('nonrp') && isNonRp);
       }
       return <span key={`${text}_${i}`} style={{ color: `${color}`, opacity: opacity }} className={`${type.join(' ')}`}>{text}</span>;
     });
-    return [result, isNonRp];
+    return [result, isNonRp, isRoll ? 'roll' : ''];
   };
 
   const getList = () => {
@@ -195,7 +197,7 @@ const Chat = (props) => {
       const result = getMessageSpans(msg);
       return (
         <div
-          className={`msg ${result[1] ? 'nonrp' : ''}`}
+          className={`msg ${result[1] ? 'nonrp' : ''} ${result[2]}`}
           key={`msg-${index}`}
           style={{ marginLeft: '10px', opacity: msg.opacity }}
         >

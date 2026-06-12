@@ -83,6 +83,12 @@
         &.action {
           color: #c37bdd;
         }
+        &.roll {
+          color: #c37bdd;
+          span {
+            color: #c37bdd !important;
+          }
+        }
         &.admin {
           color: #ce3131;
         }
